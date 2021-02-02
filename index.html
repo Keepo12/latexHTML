@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<title>Mathedemo</title>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+<body>
+<h2>Math in TeX notation</h2>
+
+Denote the origin to be the midpoint of chord $\overline{AB}$.
+Define $f(x) = \sqrt{R^2 - x^2} - R\cos(\alpha)$, which includes minor arc $AB$.
+
+Noting that $R\cos(\alpha)$ is a constant, we have
+\begin{align*}
+f'(x)
+&= \frac{d}{dx} (\sqrt{R^2 - x^2} - R\cos(\alpha))\\
+&= \frac{d}{dx} \sqrt{R^2 - x^2}\\
+&= \frac{-1}{2\sqrt{R^2 - x^2}} (2x)\\
+&= \frac{-x}{\sqrt{R^2 - x^2}}.
+\end{align*}
+The x-coordinates of points $B$ and $A$ are $-R\sin(\alpha)$ and $R\sin(\alpha)$ respectively.
+
+Substituting into $2\pi \int_a^b f(x)\sqrt{1+(f'(x))^2}\,dx$, the general formula for the surface area of revolution, we have
+$$2\pi \int_{-R\sin(\alpha)}^{R\sin(\alpha)} (\sqrt{R^2 - x^2} - R\cos(\alpha))\sqrt{1+\left(\frac{-x}{\sqrt{R^2 - x^2}}\right)^2}\,dx.$$
+Focusing only on the integrand for now, we make $1$ into a fraction and distribute:
+\begin{align*}
+(\sqrt{R^2 - x^2} - R\cos(\alpha))\sqrt{1+\frac{x^2}{R^2 - x^2}}
+&= (\sqrt{R^2 - x^2} - R\cos(\alpha))\sqrt{\frac{R^2 - x^2}{R^2 - x^2}+\frac{x^2}{R^2 - x^2}}\\\
+&= (\sqrt{R^2 - x^2} - R\cos(\alpha))\sqrt{\frac{R^2}{R^2 - x^2}}\\
+&= R-\frac{R^2\cos(\alpha)}{\sqrt{R^2-x^2}}.
+\end{align*}
+Back to the original expression and simplifying,
+\begin{align*}
+2\pi \int_{-R\sin(\alpha)}^{R\sin(\alpha)} (\sqrt{R^2 - x^2} - R\cos(\alpha))\sqrt{1+\left(\frac{-x}{\sqrt{R^2 - x^2}}\right)^2}\,dx
+&= 2\pi \int_{-R\sin(\alpha)}^{R\sin(\alpha)} \left(R-\frac{R^2\cos(\alpha)}{\sqrt{R^2-x^2}}\right) \,dx\\
+&= 2\pi \left(\int_{-R\sin(\alpha)}^{R\sin(\alpha)} R \,dx - \int_{-R\sin(\alpha)}^{R\sin(\alpha)} \frac{R^2\cos(\alpha)}{\sqrt{R^2-x^2}} \,dx \right) \\
+&= 2\pi \left(2R^2\sin(\alpha) - R^2\cos(\alpha)\int_{-R\sin(\alpha)}^{R\sin(\alpha)} \frac{1}{\sqrt{R^2-x^2}} \,dx\right).
+\end{align*}
+Isolating the integrated part, the form of the integrand motivates a trigonometric substitution. Let $x = R\sin(u)$ so $u = \arcsin\left(\frac{x}{R}\right)$.
+Using the fact that $\frac{d}{dx} \arcsin(x) = \frac{1}{\cos(\arcsin(x))}$, we have $\frac{du}{dx} = \frac{1}{R\cos(u)}$ and $dx = R\cos(u) du$.
+
+Substituting, we have
+\begin{align*}
+\int_{-R\sin(\alpha)}^{R\sin(\alpha)} \frac{1}{\sqrt{R^2-x^2}} \,dx
+&= \int_{-R\sin(\alpha)}^{R\sin(\alpha)} \frac{R\cos(u)}{\sqrt{R^2-(R\sin(u))^2}} \,du\\
+&= \int_{-R\sin(\alpha)}^{R\sin(\alpha)} \frac{R\cos(u)}{\sqrt{R^2(1 - \sin(u)^2)}} \,du\\
+&= \int_{-R\sin(\alpha)}^{R\sin(\alpha)} \frac{R\cos(u)}{R\sqrt{1 - \sin(u)^2}} \,du\\
+&= \int_{-R\sin(\alpha)}^{R\sin(\alpha)} \frac{\cos(u)}{\cos(u)} \,du\\
+&= \int_{-R\sin(\alpha)}^{R\sin(\alpha)} 1 \,du.
+\end{align*}
+Using the fundamental theorem of calculus,
+$$\int_{-R\sin(\alpha)}^{R\sin(\alpha)} 1 \,du = \arcsin\left(\frac{R\sin(\alpha)}{R}\right) - \arcsin\left(-\frac{R\sin(\alpha)}{R}\right)= 2\alpha.$$
+Substituting in the main expression and simplifying, we have
+$$2\pi (2R^2\sin(\alpha) - R^2\cos(\alpha) \cdot 2\alpha) = 2\pi (2R^2\sin(\alpha) - 2R^2 \alpha\cos(\alpha)) = 4\pi R^2(\sin(\alpha) - \alpha\cos(\alpha)).$$
+
+
+
+</body>
+
+</html>
